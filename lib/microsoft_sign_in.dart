@@ -12,11 +12,9 @@ signInWithMicrosoft() async {
   final AuthorizationTokenRequest microsoftOAuthConfig =
   AuthorizationTokenRequest(
     kClientID,
-    '$kRedirectUri/', // need to add / at the end of uri
+    '$kRedirectUri/',
     discoveryUrl: 'https://login.microsoftonline.com/$kTenant/v2.0/.well-known/openid-configuration',
-    // version of oauth could be found on manifest of Azure Directory
     scopes: ['openid', 'profile', 'email', 'User.read'],
-    // also need to check those API permissions in AD
   );
 
   try {
@@ -31,7 +29,7 @@ signInWithMicrosoft() async {
       headers: {
         'Authorization': 'Bearer $accessToken',
       },
-    ); // use microsoft Graph API get user information
+    );
     if (response.statusCode == 200) {
 
       final Map<String, dynamic> userInfo = json.decode(response.body);
